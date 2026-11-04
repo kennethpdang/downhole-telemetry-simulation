@@ -14,7 +14,13 @@
 			"left": -204.9,
 			"rotate": 270,
 			"attrs": { "color": "green", "xray": "1" }
-		}
+		},
+		{ "type": "wokwi-mpu6050", "id": "imu1", "top": -140, "left": -20, "attrs": {} },
+		{ "type": "wokwi-photoresistor-sensor", "id": "ldr1", "top": 300, "left": -260, "attrs": {} },
+		{ "type": "wokwi-resistor", "id": "r1", "top": 140, "left": 200, "attrs": { "value": "220" } },
+		{ "type": "wokwi-led", "id": "led_pulse", "top": 80, "left": 290, "attrs": { "color": "yellow", "label": "MUD PULSE" } },
+		{ "type": "wokwi-resistor", "id": "r2", "top": 200, "left": 200, "attrs": { "value": "220" } },
+		{ "type": "wokwi-led", "id": "led_alarm", "top": 160, "left": 290, "attrs": { "color": "red", "label": "ALARM" } }
 	],
 	"connections": [
 		[ "esp:TX", "$serialMonitor:RX", "", [] ],
@@ -30,7 +36,20 @@
 		[ "pot1:SIG", "esp:34", "green", [ "v48", "h210.65" ] ],
 		[ "btn1:1.r", "bb1:1b.i", "", [ "$bb" ] ],
 		[ "btn1:2.r", "bb1:3b.i", "", [ "$bb" ] ],
-		[ "esp:15", "bb1:3b.h", "green", [ "v-19.2", "h-249.6" ] ]
+		[ "esp:15", "bb1:3b.h", "green", [ "v-19.2", "h-249.6" ] ],
+		[ "imu1:VCC", "esp:3V3", "red", [] ],
+		[ "imu1:GND", "esp:GND.1", "black", [] ],
+		[ "imu1:SDA", "esp:21", "green", [] ],
+		[ "imu1:SCL", "esp:22", "green", [] ],
+		[ "ldr1:VCC", "esp:3V3", "red", [] ],
+		[ "ldr1:GND", "esp:GND.1", "black", [] ],
+		[ "ldr1:AO", "esp:35", "orange", [] ],
+		[ "esp:4", "r1:1", "yellow", [] ],
+		[ "r1:2", "led_pulse:A", "yellow", [] ],
+		[ "led_pulse:C", "esp:GND.3", "black", [] ],
+		[ "esp:5", "r2:1", "red", [] ],
+		[ "r2:2", "led_alarm:A", "red", [] ],
+		[ "led_alarm:C", "esp:GND.3", "black", [] ]
 	],
 	"dependencies": {}
 }
